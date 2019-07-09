@@ -1,0 +1,15 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block auth %}
+<h1>Here To Hear</h1>
+<p class="lead text-muted">불편했던 병원 이용, 이제 그만!</p>
+<div class="login-form-container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-sm btn-outline-primary">로그인</button>
+    </form>
+    <p class="mt-2"><a href="{% url 'django_registration_register' %}">회원가입</a></p> 
+</div>
+{% endblock %}

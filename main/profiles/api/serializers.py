@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from users.models import CustomUser
-from profiles.models import Profile
+
 
 # 16.인우 : ProfileUpdateSerializer를 설정한 이유는 2가지입니다.
 # 첫째, 프로필 업데이트를 위해서입니다.
@@ -20,22 +20,26 @@ from profiles.models import Profile
 # 확인할 수 있다는 것입니다.
 # (이에 대한 대안으로 hyperlinkrelated필드 등이 있을 수 있겠으나 drf에 대한 이해가 부족해서 일단 
 # 이렇게만 만들어놨습니다.)
+
 class ProfileUpdateSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = CustomUser
-        fields = ["name", "gender", "birth_date", "height", "weight", "avatar"]
+        fields = ["name", "gender", "birth_date", "height", "weight", "avatar", 'how_much_alchol',
+        'how_much_smoke', 'how_much_game']
         # 17.인우 : 과연 이름이나 성별같은 항목을 바꿀 수 있는 값으로 둬도 좋은걸까요...?
 
 class ProfileSerializer(serializers.ModelSerializer):  
 
-    user = ProfileUpdateSerializer(read_only=True)
+    # user = ProfileUpdateSerializer(read_only=True)
     # 18.인우 : 이렇게 설정하는 것이 nested relationship을 설정하는 방식입니다.
     # 만약 프로필 모델과 커스텀 유저 모델이 1:N관계를 이룬다면 many=true를 설정해줘야 합니다만,
     # 여기서는 OneToOneField로 엮여있기 때문에 설정하지 않았습니다.
     # 직렬화 클래스도 짰으니 profiles/api/views.py로 ㄱㄱ
 
     class Meta:
-        model = Profile
+        model = CustomUser
         fields = "__all__"
 
+
+# 박지환 : user 모델만 이용하는 방법 시도

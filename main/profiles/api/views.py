@@ -1,15 +1,14 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
-from profiles.api.serializers import ProfileSerializer
-from profiles.api.serializers import ProfileUpdateSerializer
 from profiles.api.permissions import IsOwnerOnly
-from profiles.models import Profile
 from users.models import CustomUser
 
+from users.models import CustomUser
+from profiles.api.serializers import ProfileUpdateSerializer, ProfileSerializer
 # 19.인우 : 프로필 리스트 뷰가 필요한 건진 모르겠는데 일단 우리 보기 좋자고 짜봤습니다.
 # 일반 사용자가 접근할 수 있으면 안 되니 IsAdminUser로 permission설정했습니다.
 class ProfileListAPIView(generics.ListAPIView):
-    queryset = Profile.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAdminUser]
 
@@ -22,8 +21,8 @@ class ProfileRetrieveAPIView(generics.RetrieveAPIView):
 # 퍼미션 관련해서는 좀 논의를 해봐야 될 것 같습니다.
 
     def get_object(self):
-        profile_object = self.request.user.profile
-        return profile_object
+        customuser_object = self.request.user
+        return customuser_object
 # 21.인우 : 프로필이야 사용자가 "자기 것만" 볼 수 있어야 하니 queryset대신에 get_object함수 설정해줬습니다
 
 class ProfileUpdateAPIView(generics.UpdateAPIView):
@@ -36,7 +35,7 @@ class ProfileUpdateAPIView(generics.UpdateAPIView):
     # lookup_url_kwargs = 
 
     def get_object(self):
-        profile_object = self.request.user.profile
-        return profile_object
+        customuser_object = self.request.user
+        return customuser_object
 # 23.인우 : 갱신할 프로필도 사용자 본인 것만 해당되기 때문에 queryset대신에 get_object함수 설정해줬습니다.
 # view도 만들어줬으니 profiles/api/urls.py로 ㄱㄱ

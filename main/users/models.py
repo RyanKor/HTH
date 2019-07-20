@@ -39,6 +39,13 @@ class CustomUser(AbstractUser):
     # 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.
     # ->main/setting.py AUTH_USER_MODEL로 ㄱㄱ
 
+
+    how_much_alchol = models.CharField(max_length=100, default="")
+    how_much_smoke = models.CharField(max_length=100, default="")
+    how_much_game = models.CharField(max_length=100, default="")
+
+    # 위의 3개 필드는 회원가입때는 입력받지 않고 profiles에서 update할 수 있는지 확인하려고 추가했습니다.
+    # 정상적으로 실행됩니다.
     def __str__(self):
         return self.username
 

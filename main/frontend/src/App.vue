@@ -1,20 +1,8 @@
 <template>
   <div id="app">
-    
     <router-view />
   </div>
 </template>
-
-// <script>
-// import NavbarComponent from './components/Navbar.vue'
-// export default {
-//   name: 'app',
-//   components : {
-//     NavbarComponent
-//   }
-// }
-// </script>
-
 
 <style>
 #app {
@@ -24,10 +12,6 @@
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-}
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;

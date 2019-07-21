@@ -4,10 +4,9 @@ import Vue from "vue";
 import './plugins/bootstrap-vue'
 import App from "./App.vue";
 import router from "./router";
-import axios from 'axios';
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
-
-Vue.prototype.$http = axios
+// footer.vue에 적용. mdb를 main.js에 적용해야 globl하게 적용 가능함.
+// main.js에서 mdbvue라는 부트스트랩 모듈을 받아왔음. npm install --save mdbvue를 하고 나서 main.js에 라이브러리 호출!
+import 'mdbvue/build/css/mdb.css';
 Vue.config.productionTip = false;
 
 new Vue({

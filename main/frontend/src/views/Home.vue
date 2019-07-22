@@ -2,7 +2,7 @@
   <div class="home">
     <Navbar />
     <Slider />
-    <Buttons msg="편의 기능 함 눌러봐" />
+    <Buttons />
     <Footer />
   </div>
 </template>

@@ -41,5 +41,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = "__all__"
 
+class ProfileListSerializer(serializers.ModelSerializer):  
+    
+    # user = ProfileUpdateSerializer(read_only=True)
+    # 18.인우 : 이렇게 설정하는 것이 nested relationship을 설정하는 방식입니다.
+    # 만약 프로필 모델과 커스텀 유저 모델이 1:N관계를 이룬다면 many=true를 설정해줘야 합니다만,
+    # 여기서는 OneToOneField로 엮여있기 때문에 설정하지 않았습니다.
+    # 직렬화 클래스도 짰으니 profiles/api/views.py로 ㄱㄱ
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'name']
+
 
 # 박지환 : user 모델만 이용하는 방법 시도

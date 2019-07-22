@@ -4,17 +4,17 @@ from profiles.api.permissions import IsOwnerOnly
 from users.models import CustomUser
 
 from users.models import CustomUser
-from profiles.api.serializers import ProfileUpdateSerializer, ProfileSerializer
+from profiles.api.serializers import ProfileUpdateSerializer, ProfileSerializer, ProfileListSerializer
 # 19.인우 : 프로필 리스트 뷰가 필요한 건진 모르겠는데 일단 우리 보기 좋자고 짜봤습니다.
 # 일반 사용자가 접근할 수 있으면 안 되니 IsAdminUser로 permission설정했습니다.
 class ProfileListAPIView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileListSerializer
     permission_classes = [IsAdminUser]
 
 class ProfileRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
-    # lookup_url_kwargs = 
+    lookup_field = 'username'
     permission_classes = [IsOwnerOnly]
 # 20.인우 : 사용자가 아니라면 관리자라 할지라도 사용자 프로필은 마음대로 보면 안된다고 생각해서 
 # 퍼미션을 이렇게 주긴 했는데 이미 프로필리스트뷰에서 관리자가 볼 수 있게 만들었네요....

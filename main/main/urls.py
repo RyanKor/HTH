@@ -54,7 +54,5 @@ urlpatterns = [
         
     path("api/rest-auth/registration/", include("rest_auth.registration.urls")),
 
-    # re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
-    
-    # 제대로 된 url 주소를 입력해도 Index로 이동해서 일단 주석처리했습니다.
+    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
 ]

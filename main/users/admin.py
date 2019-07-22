@@ -3,15 +3,35 @@ from django.contrib.auth.admin import UserAdmin
 from users.models import CustomUser
 
 
-# class CustomUserAdmin(UserAdmin):
-#     # add_form = 
-#     # form = 
-#     model = CustomUser
-#     list_display = ["username", "email", "is_staff", "name", "gender", "birth_date", "height", "weight", "avatar"]
+class CustomUserAdmin(UserAdmin):
+    # add_form = UserCreationForm
+    # form = UserChangeForm
+    model = CustomUser
+    list_display = ["username", "email", "is_staff"]
+    # 관리자 페이지에서 유저 모델 들어가면 유저 목록에서 뜨는 정보
+    fieldsets = (
+        ('Private', {'fields': ('password',)}),
+        ('Profile info', {'fields': ("username", "email", "name", "gender", "birth_date",
+                                     "height", "weight", "avatar", 'how_much_alchol', 'how_much_smoke', 'how_much_game')}),
+        ('Permissions', {'fields': ('is_staff',)})
+    )
+    # add_fieldsets = {
+    #     'classes': ('wide',),
+    #     'fields':('username', 'email', 'password1', 'password2')
+    # }
+    # add_fieldsets은 어떻게 custom하는지 모르겠음 공식문서 따라한 건데 오류 뜨네요
+    # 그래서 add user할 때는 프로필 정보를 넣을 수가 없습니당...
+
+    search_fields = ('username',)
+    # 관리자 페이지에서 user검색 가능
+    ordering = ('username',)
+    # username대로 오름차순?정렬
+    filter_horizontal = ()
+    # 먼지 모름 그냥 공식문서 배낌
 
 
-# admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
 
 
-#인우 : 커스텀한 유저 모델의 필드가 확인이 안되길래 일단 위는 주석 처리하고 아래와 같이 다시 등록했어요.
-admin.site.register(CustomUser)
+# # 인우 : 위의 방식으로 해도 되고 아래방식으로 해도 됩니다. 보이기는 위의 방식이 훨씬 깔끔하네요.
+# admin.site.register(CustomUser)

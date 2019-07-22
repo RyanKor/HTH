@@ -23,16 +23,16 @@ class CustomUser(AbstractUser):
         max_length=6, choices=gender_choices)
     # 4.인우 : 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.
 
-    birth_date = models.DateField()
+    birth_date = models.DateField(default=date.today)
 
-    height = models.PositiveSmallIntegerField(
-        validators=[MaxValueValidator(250)])
+    height = models.PositiveSmallIntegerField(default=160,
+                                              validators=[MaxValueValidator(250)])
     # 5.인우 : validator는 나중에 좀 더 손봐야 할 것 같습니다. 장난으로 키 막 300 이렇게 적을까봐 일단
     # 넣어봤어요.
     # 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.
 
-    weight = models.PositiveSmallIntegerField(
-        validators=[MaxValueValidator(200)])
+    weight = models.PositiveSmallIntegerField(default=60,
+                                              validators=[MaxValueValidator(200)])
     # 6.인우 : validator는 나중에 좀 더 손봐야 할 것 같습니다. 장난으로 몸무게 막 300 이렇게 적을까봐 일단
     # 넣어봤어요.
     # 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.

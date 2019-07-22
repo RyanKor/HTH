@@ -43,6 +43,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
 
     # 이놈
+    # api 뒤에 있는 url는 브라우저 url로 확인하기 위한 개발자용 url입니다.(박지환)
     path("api/", include("users.api.urls")),
 
     path("api/", include("profiles.api.urls")),
@@ -53,5 +54,7 @@ urlpatterns = [
         
     path("api/rest-auth/registration/", include("rest_auth.registration.urls")),
 
-    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
+    # re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
+    
+    # 제대로 된 url 주소를 입력해도 Index로 이동해서 일단 주석처리했습니다.
 ]

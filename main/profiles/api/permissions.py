@@ -7,4 +7,4 @@ class IsOwnerOnly(permissions.BasePermission):
 # 무슨 차이가 있을지 모르겠네요.
 # 이제 프로필이 자동생성되게끔 하기 위해 signals.py를 프로필 앱에 만들어줍시다.
 # profiles/signals.py로 ㄱㄱ
-        return obj.user == request.user
+        return obj == request.user

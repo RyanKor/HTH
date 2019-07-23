@@ -1,0 +1,4 @@
+Profile, CustomUser 모델 두개를 만드는게 아니라
+CustomUser 모델 하나만 만들고 app을 profiles와 users로 나누어 같이 쓰는 형식으로 바꿨습니다.
+
+회원가입때 입력한 정보 말고 profiles에 들어가서 추가할 수 있고 기존에 입력했던 정보도 업데이트 가능합니다.

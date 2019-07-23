@@ -184,3 +184,6 @@ MEDIA_ROOT = "uploads"
 # MEDIA_ROOT의 디폴트 값은 빈 문자열이다.
 # 사용자가 업로드한 파일을 저장?하기 위한 디렉토리를 가리키는 절대경로이다.
 # Example: "/var/www/example.com/media/"
+
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR), 'static')

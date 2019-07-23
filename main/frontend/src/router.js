@@ -32,36 +32,6 @@ export default new Router({
       path: "/result",
       name: "result",
       component: () => import("./views/Result.vue")
-    },
-    {
-      path: "/checkup",
-      name: "checkup",
-      component: () => import("./comfort/Checkup.vue")
-    },
-    {
-      path: "/cs",
-      name: "cs",
-      component: () => import("./comfort/Cs.vue")
-    },
-    {
-      path: "/doctor",
-      name: "doctor",
-      component: () => import("./comfort/Doctor.vue")
-    },
-    {
-      path: "/prescription",
-      name: "prescription",
-      component: () => import("./comfort/Prescription.vue")
-    },
-    {
-      path: "/sick",
-      name: "sick",
-      component: () => import("./comfort/Sick.vue")
-    },
-    {
-      path: "/stomach",
-      name: "stomach",
-      component: () => import("./comfort/Stomach.vue")
     }
   ]
 });

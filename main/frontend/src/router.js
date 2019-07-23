@@ -5,8 +5,6 @@ import Home from "./views/Home.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
-  base: process.env.BASE_URL,
   routes: [
     {
       path: "/",
@@ -21,6 +19,46 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue")
+    },
+    {
+      path: "/survey",
+      name: "survey",
+      component: () => import("./views/Survey.vue")
+    },
+    {
+      path: "/result",
+      name: "result",
+      component: () => import("./views/Result.vue")
+    },
+    {
+      path: "/checkup",
+      name: "checkup",
+      component: () => import("./comfort/Checkup.vue")
+    },
+    {
+      path: "/cs",
+      name: "cs",
+      component: () => import("./comfort/Cs.vue")
+    },
+    {
+      path: "/doctor",
+      name: "doctor",
+      component: () => import("./comfort/Doctor.vue")
+    },
+    {
+      path: "/prescription",
+      name: "prescription",
+      component: () => import("./comfort/Prescription.vue")
+    },
+    {
+      path: "/sick",
+      name: "sick",
+      component: () => import("./comfort/Sick.vue")
+    },
+    {
+      path: "/stomach",
+      name: "stomach",
+      component: () => import("./comfort/Stomach.vue")
     }
   ]
 });

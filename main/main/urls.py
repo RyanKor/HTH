@@ -43,6 +43,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
 
     # 이놈
+    # api 뒤에 있는 url는 브라우저 url로 확인하기 위한 개발자용 url입니다.(박지환)
     path("api/", include("users.api.urls")),
 
     path("api/", include("profiles.api.urls")),

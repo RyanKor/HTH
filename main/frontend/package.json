@@ -14,7 +14,8 @@
     "lingallery": "^1.0.26",
     "mdbvue": "^5.6.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue-scrollactive": "^0.8.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.4.4",

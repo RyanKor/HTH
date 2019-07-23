@@ -12,7 +12,14 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         ('Private', {'fields': ('password',)}),
         ('Profile info', {'fields': ("username", "email", "name", "gender", "birth_date",
-                                     "height", "weight", "avatar", 'how_much_alchol', 'how_much_smoke', 'how_much_game')}),
+                                     "height", "weight", "avatar")}),
+        ('Anamnesis', {'fields': ('had_checkup', 'had_checkup_true',
+                                  'diagnosed_disease', 'taking_medicine', 'what_medicine',
+                                  'family_history')}),
+        ('Social History', {
+         'fields': ('drinking', 'drinking_per_week', 'smoking', 'how_long_smoking',
+                    'how_much_smoking', 'job', 'relevant_data')}),
+        # 'abdomen_relevant'일단 뺌
         ('Permissions', {'fields': ('is_staff',)})
     )
     # add_fieldsets = {

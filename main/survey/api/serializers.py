@@ -14,13 +14,18 @@ class StomachacheSurveySerializer(serializers.ModelSerializer):
         model = StomachacheSurvey
         fields = "__all__"
 
+
 # 설문지에 대한 serializer 설정(복통 답변 포함)
 
 
 class SurveyMetaSerializer(serializers.ModelSerializer):
 
     author = serializers.StringRelatedField(read_only=True)
-    answer = StomachacheSurveySerializer(read_only=True)
+    answer = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name='stomachachesurvey-detail')
+
+    # 만약 링크가 아니라 데이터 전체를 보여주고 싶으면 밑의 코드로 대체하면 됩니다.
+    # answer = StomachacheSurveySerializer(read_only=True)
 
     class Meta:
         model = SurveyMeta

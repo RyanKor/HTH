@@ -6,5 +6,5 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ["username", "email", "name", "gender", "birth_date", "height",
-                  "weight", "avatar", 'how_much_alchol', 'how_much_smoke', 'how_much_game']
+        exclude = ("id", "last_login", "is_superuser", "first_name", "last_name",
+                   "is_staff", "is_active", "date_joined", "groups", "user_permissions")

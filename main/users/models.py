@@ -23,16 +23,16 @@ class CustomUser(AbstractUser):
         max_length=6, choices=gender_choices)
     # 4.인우 : 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.
 
-    birth_date = models.DateField(default=date.today)
+    birth_date = models.DateField()
 
-    height = models.PositiveSmallIntegerField(default=160,
-                                              validators=[MaxValueValidator(250)])
+    height = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(250)])
     # 5.인우 : validator는 나중에 좀 더 손봐야 할 것 같습니다. 장난으로 키 막 300 이렇게 적을까봐 일단
     # 넣어봤어요.
     # 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.
 
-    weight = models.PositiveSmallIntegerField(default=60,
-                                              validators=[MaxValueValidator(200)])
+    weight = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(200)])
     # 6.인우 : validator는 나중에 좀 더 손봐야 할 것 같습니다. 장난으로 몸무게 막 300 이렇게 적을까봐 일단
     # 넣어봤어요.
     # 디폴트값 없으면 migration이 안 먹혀서 임의로 넣었습니다.
@@ -74,7 +74,7 @@ class CustomUser(AbstractUser):
     diagnosed_disease = models.CharField(max_length=3, choices=disease_list)
 
     # 드시고 계시는 약이 있나요?
-    taking_medicine = models.BooleanField(default=False)
+    taking_medicine = models.BooleanField()
     # 얘도 디폴트값 설정 안하면 createsuperuser오류나여...
 
     # 드시고 계신 약물을 알려주세요
@@ -87,7 +87,7 @@ class CustomUser(AbstractUser):
     # 사회력
 
     # 술을 드시나요?
-    drinking = models.BooleanField(default=False)
+    drinking = models.BooleanField()
     # 얘도 디폴트값 설정 안하면 createsuperuser오류나여...
 
     # 매주 몇 병 드시나요?
@@ -103,11 +103,11 @@ class CustomUser(AbstractUser):
     smoking = models.CharField(max_length=3, choices=do_you_smoke)
 
     # 몇년째 피고 계신가요?
-    how_long_smoking = models.PositiveSmallIntegerField(default=0)
+    how_long_smoking = models.PositiveSmallIntegerField()
     # 얘도 디폴트값 설정 안하면 createsuperuser오류나여...
 
     # 몇 갑씩 피시나요
-    how_much_smoking = models.PositiveSmallIntegerField(default=0)
+    how_much_smoking = models.PositiveSmallIntegerField()
     # 얘도 디폴트값 설정 안하면 createsuperuser오류나여...
 
     # 직업이 무엇인가요?
@@ -115,14 +115,16 @@ class CustomUser(AbstractUser):
     # 직업을 꼭 말하고 싶지 않을 수도 있죠
 
     # 다음 중 해당사항에 체크해주세요
-    stress="스트레스를 많이 받는 편"
-    irregular_meals="식사 불규칙"
-    greasy_meals="기름진 음식을 많이 먹음"
-    irregular_sleep="수면시간 불규칙"
-    bad_habits=(
-        (stress, "스트레스를 많이 받는 편"), (irregular_meals, "식사 불규칙"), (greasy_meals, "기름진 음식을 많이 먹음"), (irregular_sleep, "수면시간 불규칙")
+    stress = "스트레스를 많이 받는 편"
+    irregular_meals = "식사 불규칙"
+    greasy_meals = "기름진 음식을 많이 먹음"
+    irregular_sleep = "수면시간 불규칙"
+    bad_habits = (
+        (stress, "스트레스를 많이 받는 편"), (irregular_meals, "식사 불규칙"), (greasy_meals,
+                                                                 "기름진 음식을 많이 먹음"), (irregular_sleep, "수면시간 불규칙")
     )
-    relevant_data = models.CharField(max_length=13, choices=bad_habits, blank=True, null=True)
+    relevant_data = models.CharField(
+        max_length=13, choices=bad_habits, blank=True, null=True)
 
     # 다음 중 해당 사항에 모두 체크해주세요
     # abdomen_hurted = "복부를 다친 적이 있음"
@@ -133,5 +135,10 @@ class CustomUser(AbstractUser):
     # )
     # abdomen_relevant = models.CharField(max_length=15, choices=abdomen_history)
 
+    # 지환 : user 모델을 customize하다 보니 createsuperuser할때 default이 없는 필드의 경우 오류가 납니다.
+    # 이를 방지하기 위해 createsuperuser할때도 입력할 필드들을 넣어놨지만 create_superuser 함수를 override하는편이 나을 듯합니다
+    REQUIRED_FIELDS = ['birth_date', 'email', 'height', 'weight',
+                       'taking_medicine', 'drinking', 'how_long_smoking', 'how_much_smoking']
+
     def __str__(self):
-        return self.username
+        return self.name

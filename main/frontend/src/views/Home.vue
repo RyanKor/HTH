@@ -10,16 +10,16 @@
 <script>
 // @ is an alias to /src
 import Buttons from "../components/Buttons.vue";
-import Navbar from '../components/Navbar.vue';
-import Slider from '../components/Carousel.vue';
-import Footer from '../components/Footer.vue';
+import Navbar from "../components/Navbar.vue";
+import Slider from "../components/Carousel.vue";
+import Footer from "../components/Footer.vue";
 export default {
   name: "home",
-    data () {
+  data() {
     return {
-      title: 'Main'
-    }
-      },
+      title: "Main"
+    };
+  },
   components: {
     Navbar,
     Slider,

@@ -1,39 +1,38 @@
 from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import IsAdminUser
 from profiles.api.permissions import IsOwnerOnly
-from users.models import CustomUser
-from profiles.api.serializers import ProfileSerializer
+from profiles.models import Profile
+from profiles.api.serializers import ProfileDisplaySerializer, ProfileRetrieveSerializer, ProfileUpdateSerializer
 
 
 class ProfileListAPIView(generics.ListAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    serializer_class = ProfileDisplaySerializer
     permission_classes = [IsAdminUser]
 
 
-class ProfileViewSet(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    queryset = CustomUser.objects.all()
-    serializer_class = ProfileSerializer
+class ProfileRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = ProfileRetrieveSerializer
     permission_classes = [IsOwnerOnly]
-    lookup_field = "username"
+    lookup_field = "user"
+
+    def get_object(self):
+        profile_object = self.request.user.profile
+        return profile_object
 
 
-# class ProfileRetrieveAPIView(generics.RetrieveAPIView):
+class ProfileUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = ProfileUpdateSerializer
+    permission_classes = [IsOwnerOnly]
+    lookup_field = "user"
+
+
+    def get_object(self):
+        profile_object = self.request.user.profile
+        return profile_object
+
+# class ProfileViewSet(mixins.UpdateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+#     queryset = Profile.objects.all()
 #     serializer_class = ProfileSerializer
-#     # lookup_url_kwargs =
 #     permission_classes = [IsOwnerOnly]
-
-#     def get_object(self):
-#         customuser_object = self.request.user
-#         return customuser_object
-
-
-# class ProfileUpdateAPIView(generics.UpdateAPIView):
-#     serializer_class = ProfileSerializer
-
-#     permission_classes = [IsOwnerOnly]
-#     # lookup_url_kwargs =
-
-#     def get_object(self):
-#         customuser_object = self.request.user
-#         return customuser_object
+#     lookup_field = "user"

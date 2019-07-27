@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "axios": "^0.19.0",
     "bootstrap-vue": "^2.0.0-rc.19",
     "core-js": "^2.6.5",
@@ -16,6 +17,7 @@
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue-scrollactive": "^0.8.0",
+    "vuetify": "^2.0.1",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
@@ -35,6 +37,7 @@
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-bootstrap-vue": "^0.4.0",
     "vue-cli-plugin-mdb": "^1.4.0",
+    "vue-cli-plugin-vuetify": "^0.6.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
@@ -58,6 +61,7 @@
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions"
+    "last 2 versions",
+    "not ie <= 10"
   ]
 }

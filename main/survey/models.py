@@ -1,30 +1,21 @@
 from django.db import models
 from users.models import CustomUser
+from profiles.models import Profile
 # Create your models here.
 
-# 설문지 모델(지금은 일단 복통 답변 모델과 onetoone으로 엮었습니다)
 class SurveyMeta(models.Model):
 
-    SYMPTOMS = [
-        ('cough', '기침가래'),
-        ('stomachache', '복통'),
-        ('diarrhea', '설사'),
-        ('constipation', '변비'),
-        ('headache', '두통'),
-        ('arthralgia', '관절통'),
-    ]
-
-    symptom = models.CharField(choices=SYMPTOMS, max_length=20)
+    symptom = models.CharField(max_length=20)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    # default=date.today로 해도 될 듯?
 
     def __str__(self):
-        return (self.author.name + '/' + self.symptom + '/' + str(self.id))
+        return (self.author.username + '/' + self.symptom + '/' + str(self.id))
 
-# 복통 답변 모델
-class StomachacheSurvey(models.Model):
+class StomachacheSurvey(SurveyMeta):
     survey = models.OneToOneField(
-        SurveyMeta, on_delete=models.CASCADE, related_name='answer')
+        SurveyMeta, on_delete=models.CASCADE, related_name='stomach', parent_link=True)
 
     SYMTPOM_START = [
         ('less_than_month', '한 달이 안됐습니다.'),
@@ -176,4 +167,5 @@ class StomachacheSurvey(models.Model):
     other_factor = models.CharField(max_length=100)
 
     def __str__(self):
-        return str(self.survey)
+        return (self.author.username + '/' + self.symptom + '/' + str(self.id))
+        

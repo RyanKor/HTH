@@ -3,7 +3,6 @@ from datetime import date
 from django.core.validators import MinValueValidator, MaxValueValidator
 from users.models import CustomUser
 
-
 class Profile(models.Model):
     user = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE, related_name='profile')

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'hth',
     'profiles',
     # 인우 : profiles앱 추가했습니다
-
+    'survey',
+    # 지환 : survey 앱 추가
     'rest_framework',
     'rest_framework.authtoken',
 

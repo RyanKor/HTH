@@ -21,7 +21,7 @@ from django_registration.backends.one_step.views import RegistrationView
 from core.views import IndexTemplateView
 from users.forms import CustomUserForm
 
-
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 # https://django-registration.readthedocs.io/en/3.0/activation-workflow.html
 
 urlpatterns = [
@@ -52,11 +52,14 @@ urlpatterns = [
 
     path("api/rest-auth/", include("rest_auth.urls")),
 
+    path('api/rest-auth/obtain_token/', obtain_jwt_token, name="obtain-jwt"),
+    path('api/rest-auth/refresh_token/', refresh_jwt_token, name="refresh-jwt"),
+
     path("api/rest-auth/registration/", include("rest_auth.registration.urls")),
 
     # 설문지 관련 url
     path('api/', include('survey.api.urls')),
-    
+
     # 위의 url 이외의 pattern이 입력될 경우 index로 보낸다
-    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
+    # re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
 ]

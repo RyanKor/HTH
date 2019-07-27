@@ -55,7 +55,7 @@ urlpatterns = [
     path("api/rest-auth/registration/", include("rest_auth.registration.urls")),
 
     # 설문지 관련 url
-    path('api/survey/', include('survey.api.urls')),
+    path('api/', include('survey.api.urls')),
     
     # 위의 url 이외의 pattern이 입력될 경우 index로 보낸다
     re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),

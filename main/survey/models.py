@@ -116,6 +116,14 @@ class StomachacheSurvey(SurveyMeta):
         ('defecation', '배뇨/배변에 의해 통증변화'),
     ]
 
+    abdomen_hurted = "복부를 다친 적이 있음"
+    abdomen_surgery = "복부 수술을 받은 적이 있음"
+    abdomen_nothing = "해당없음"
+    abdomen_history = (
+        (abdomen_hurted, "복부를 다친 적이 있음"), (abdomen_surgery,
+                                           "복부 수술을 받은 적이 있음"), (abdomen_nothing, "해당없음")
+    )
+
     # Onset
     symptom_start = models.CharField(choices=SYMTPOM_START, max_length=50)
     symptom_start_less_than_month = models.DateField(default='2019-07-23')
@@ -165,6 +173,10 @@ class StomachacheSurvey(SurveyMeta):
     # factor
     factor = models.CharField(choices=FACTOR, max_length=20)
     other_factor = models.CharField(max_length=100)
+
+    # 다음 중 해당 사항에 모두 체크해주세요
+
+    abdomen_relevant = models.CharField(max_length=15, choices=abdomen_history)
 
     def __str__(self):
         return (self.author.username + '/' + self.symptom + '/' + str(self.id))

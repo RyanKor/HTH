@@ -114,15 +114,7 @@ class Profile(models.Model):
     relevant_data = models.CharField(
         max_length=13, choices=bad_habits, blank=True, null=True)
 
-    # # 다음 중 해당 사항에 모두 체크해주세요
-    # abdomen_hurted = "복부를 다친 적이 있음"
-    # abdomen_surgery = "복부 수술을 받은 적이 있음"
-    # abdomen_nothing = "해당없음"
-    # abdomen_history = (
-    #     (abdomen_hurted, "복부를 다친 적이 있음"), (abdomen_surgery,
-    #                                        "복부 수술을 받은 적이 있음"), (abdomen_nothing, "해당없음")
-    # )
-    # abdomen_relevant = models.CharField(max_length=15, choices=abdomen_history)
+
 
     def __str__(self):
         return self.name

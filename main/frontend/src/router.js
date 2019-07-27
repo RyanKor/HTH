@@ -5,7 +5,10 @@ import Home from "./views/Home.vue";
 Vue.use(Router);
 
 export default new Router({
+  hashbang: false,
+  mode : "history",
   routes: [{
+
       path: "/",
       name: "home",
       component: Home
@@ -32,6 +35,11 @@ export default new Router({
       path: "/result",
       name: "result",
       component: () => import("./views/Result.vue")
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: () => import("./views/Login.vue")
     }
   ]
 });

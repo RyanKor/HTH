@@ -1,7 +1,6 @@
 import "@babel/polyfill";
 import "mutationobserver-shim";
 import Vue from "vue";
-import "./plugins/bootstrap-vue copy";
 import App from "./App.vue";
 import router from "./router";
 // footer.vue에 적용. mdb를 main.js에 적용해야 globl하게 적용 가능함.

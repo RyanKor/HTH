@@ -124,13 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -185,3 +185,6 @@ MEDIA_ROOT = "uploads"
 # MEDIA_ROOT의 디폴트 값은 빈 문자열이다.
 # 사용자가 업로드한 파일을 저장?하기 위한 디렉토리를 가리키는 절대경로이다.
 # Example: "/var/www/example.com/media/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

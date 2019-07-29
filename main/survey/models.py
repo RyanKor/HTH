@@ -176,7 +176,8 @@ class StomachacheSurvey(SurveyMeta):
 
     # 다음 중 해당 사항에 모두 체크해주세요
 
-    abdomen_relevant = models.CharField(max_length=15, choices=abdomen_history)
+    abdomen_relevant = models.CharField(max_length=30, choices=abdomen_history)
+    # abdomen_relevant = models.CharField(max_length=100)
 
     def __str__(self):
         return (self.author.username + '/' + self.symptom + '/' + str(self.id))

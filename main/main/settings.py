@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -124,13 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -154,13 +154,32 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 2
 }
+
+JWT_AUTH = {
+    # If the secret is wrong, it will raise a jwt.DecodeError telling you as such. You can still get at the payload by setting the JWT_VERIFY to False.
+    'JWT_VERIFY': True,
+
+    # You can turn off expiration time verification by setting JWT_VERIFY_EXPIRATION to False.
+    # If set to False, JWTs will last forever meaning a leaked token could be used by an attacker indefinitely.
+    'JWT_VERIFY_EXPIRATION': True,
+
+    # This is an instance of Python's datetime.timedelta. This will be added to datetime.utcnow() to set the expiration time.
+    # Default is datetime.timedelta(seconds=300)(5 minutes).
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+}
+
+REST_USE_JWT = True
 
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -179,9 +198,11 @@ MEDIA_URL = "/media/"
 # MEDIA_ROOT로부터 전달받은 미디어를 다루는 URL
 # 디폴트 값이 아닌 값을 저장하려면 반드시 /로 끝나야함
 # 보통 아래와 같이 URL로 설정하나 개발 과정에서의 테스트를 위해 로컬로 설정했음.(ursl.py참조)
-# Example: "http://media.example.com/"
+# Example: "http://media.example.com/"`
 
 MEDIA_ROOT = "uploads"
 # MEDIA_ROOT의 디폴트 값은 빈 문자열이다.
 # 사용자가 업로드한 파일을 저장?하기 위한 디렉토리를 가리키는 절대경로이다.
 # Example: "/var/www/example.com/media/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

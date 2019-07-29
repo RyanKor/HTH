@@ -1,0 +1,2 @@
+*.sqlite3
+./main/frontend/node_modules/

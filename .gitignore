@@ -1,2 +1,5 @@
 *.sqlite3
 ./main/frontend/node_modules/
+./main/profiles/migrations/
+./main/survey/migrations/
+./main/users/migrations/

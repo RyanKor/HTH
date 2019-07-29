@@ -28,7 +28,7 @@ class StomachacheSurvey(SurveyMeta):
     ]
 
     PAIN_POSITION = [
-        ("whole abdomen", "통증"),
+        ("whole abdomen", "복부 전체"),
         ("sternal", "명치"),
         ("umbilicus", "배꼽"),
         ("flank", "옆구리"),
@@ -89,6 +89,7 @@ class StomachacheSurvey(SurveyMeta):
         ('melena', '흑색변'),
         ('steatorrhea', '지방변'),
         ('jaundice', '황달'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     ASSOCIATED_SYMPTOM_CIRCULATORY = [
@@ -96,6 +97,7 @@ class StomachacheSurvey(SurveyMeta):
         ('shortness of breah', '호흡곤란'),
         ('cough', '기침'),
         ('runny nose', '콧물'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     ASSOCIATED_SYMPTOM_GYNECOLOGY = [
@@ -103,6 +105,7 @@ class StomachacheSurvey(SurveyMeta):
         ('leukorrhea', '질분비물'),
         ('menstrual cycle change', '생리주기변화'),
         ('pregnant possibility', '임신가능성'),
+        ('nothing', '해당사항 없음'),            
     ]
 
     ASSOCIATED_SYMPTOM_WHOLE_BODY = [
@@ -113,6 +116,7 @@ class StomachacheSurvey(SurveyMeta):
         ('sweating', '식은땀'),
         ('sleep disturbance','수면곤란'), 
         ('headache', '두통'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     ASSOCIATED_SYMPTOM_URINARY = [
@@ -121,6 +125,7 @@ class StomachacheSurvey(SurveyMeta):
         ('red urine', '혈뇨'),
         ('foamy urine', '거품뇨'),
         ('frequency' ,'잦은 소변'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     FACTOR = [
@@ -130,6 +135,7 @@ class StomachacheSurvey(SurveyMeta):
         ('posture', '자세에따라 통증변화'),
         ('urination', '배뇨시 통증변화'),
         ('defecation', '배변시 통증변화'),
+        ('nothing', '해당사항 없음'),
     ]
 
     abdomen_hurted = "복부를 다친 적이 있음"

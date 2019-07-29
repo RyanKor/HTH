@@ -12,7 +12,7 @@ PAIN_POSITION = [
     ("RLQ", "오른쪽 아래"),
 ]
 
-PAIN_CHARACTER = [ # 통증의 양상 다양한 표현이 있을 수 있다.
+PAIN_CHARACTER = [  # 통증의 양상 다양한 표현이 있을 수 있다.
     ('crushing', '쥐어짜듯'),
     ('burning', '타는듯'),
     ('stabbing', '베이듯'),
@@ -69,7 +69,7 @@ ASSOCIATED_SYMPTOM_WHOLE_BODY = [
     ('fatigue', '피로'),
     ('weight change', '체중변화'),
     ('sweating', '식은땀'),
-    ('sleep disturbance','수면곤란'), 
+    ('sleep disturbance', '수면곤란'),
     ('headache', '두통'),
     ('nothing', '해당사항 없음'),
 
@@ -80,7 +80,7 @@ ASSOCIATED_SYMPTOM_URINARY = [
     ('chnage the quantity of urine', '소변량변화'),
     ('red urine', '혈뇨'),
     ('foamy urine', '거품뇨'),
-    ('frequency' ,'잦은 소변'),
+    ('frequency', '잦은 소변'),
     ('nothing', '해당사항 없음'),
 
 ]
@@ -93,17 +93,22 @@ abdomen_history = (
                                        "복부 수술을 받은 적이 있음"), (abdomen_nothing, "해당없음")
 )
 
+
 class StomachacheSurveyCreateSerializer(serializers.ModelSerializer):
     symtpom_location = serializers.MultipleChoiceField(PAIN_POSITION)
     pain_character = serializers.MultipleChoiceField(PAIN_CHARACTER)
-    associated_symptom_digestive = serializers.MultipleChoiceField(ASSOCIATED_SYMPTOM_DIGESTIVE)
-    associated_symptom_circulatory = serializers.MultipleChoiceField(ASSOCIATED_SYMPTOM_CIRCULATORY)
-    associated_symptom_gynecology = serializers.MultipleChoiceField(ASSOCIATED_SYMPTOM_GYNECOLOGY)
-    associated_symptom_whole_body = serializers.MultipleChoiceField(ASSOCIATED_SYMPTOM_WHOLE_BODY)
-    associated_symptom_urinary = serializers.MultipleChoiceField(ASSOCIATED_SYMPTOM_URINARY)
+    associated_symptom_digestive = serializers.MultipleChoiceField(
+        ASSOCIATED_SYMPTOM_DIGESTIVE)
+    associated_symptom_circulatory = serializers.MultipleChoiceField(
+        ASSOCIATED_SYMPTOM_CIRCULATORY)
+    associated_symptom_gynecology = serializers.MultipleChoiceField(
+        ASSOCIATED_SYMPTOM_GYNECOLOGY)
+    associated_symptom_whole_body = serializers.MultipleChoiceField(
+        ASSOCIATED_SYMPTOM_WHOLE_BODY)
+    associated_symptom_urinary = serializers.MultipleChoiceField(
+        ASSOCIATED_SYMPTOM_URINARY)
     factor = serializers.MultipleChoiceField(FACTOR)
     abdomen_relevant = serializers.MultipleChoiceField(abdomen_history)
-
 
     class Meta:
         model = StomachacheSurvey
@@ -111,17 +116,29 @@ class StomachacheSurveyCreateSerializer(serializers.ModelSerializer):
 
 
 class StomachacheSurveySerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField(read_only=True)
+    author = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = StomachacheSurvey
         fields = "__all__"
+
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%Y %B %d")
+
+    def get_author(self, instance):
+        return str(instance.author)
 
 
 class SurveyMetaSerializer(serializers.ModelSerializer):
 
     stomach = StomachacheSurveySerializer(read_only=True)
     author = serializers.StringRelatedField(read_only=True)
+    created_at = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = SurveyMeta
         fields = "__all__"
+
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%Y %B %d")

@@ -10,6 +10,88 @@ class SurveyMeta(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # default=date.today로 해도 될 듯?
 
+    # 과거력
+
+    # 이전에 건강검진을 받은 적이 있나요?
+    had_checkup = models.BooleanField(default=False)
+
+    # 몇 년 전에 받았나요?
+    under_one = "1년 이내"
+    one_to_three = "1-3년"
+    three_to_five = "3-5년"
+    five_to_ten = "5-10년"
+    over_ten = "10년 이상"
+    how_long_before = (
+        (under_one, '1년 이내'), (one_to_three, "1-3년"), (three_to_five,
+                                                       "3-5년"), (five_to_ten, "5-10년"), (over_ten, "10년 이상")
+    )
+    had_checkup_true = models.CharField(
+        max_length=6, choices=how_long_before, blank=True, null=True)
+
+    # 이전에 진단받은 병이 있나요?
+    high_blood_pressure = "고혈압"
+    hepatitis = "간염"
+    tuberculosis = "결핵"
+    none = "없음"
+    etc = "기타"
+    disease_list = (
+        (high_blood_pressure, '고혈압'), (hepatitis,
+                                       '간염'), (tuberculosis, '결핵'), (none, '없음'), (etc, '기타')
+    )
+    diagnosed_disease = models.CharField(max_length=3, choices=disease_list)
+
+    # 드시고 계시는 약이 있나요?
+    taking_medicine = models.BooleanField(default=False)
+
+    # 드시고 계신 약물을 알려주세요
+    what_medicine = models.CharField(max_length=20, blank=True, null=True)
+    # 복용하고 있는 약물이 복수라면...? 필드를 조정하거나 max_length를 조정해야 하나..?
+
+    # 가족분들이 진단 받은 병이 있나요?
+    family_history = models.CharField(max_length=3, choices=disease_list)
+
+    # 사회력
+
+    # 술을 드시나요?
+    drinking = models.BooleanField(default=False)
+
+    # 매주 몇 병 드시나요?
+    drinking_per_week = models.PositiveSmallIntegerField(blank=True, null=True)
+
+    # 흡연하시나요?
+    smoking_true = "예"
+    smoking_false = "아니오"
+    smoking_quit = "끊었음"
+    do_you_smoke = (
+        (smoking_true, "예"), (smoking_false, "아니오"), (smoking_quit, "끊었음")
+    )
+    smoking = models.CharField(max_length=3, choices=do_you_smoke)
+
+    # 몇년째 피고 계신가요?
+    how_long_smoking = models.PositiveSmallIntegerField(default=0)
+
+    # 몇 갑씩 피시나요
+    how_much_smoking = models.PositiveSmallIntegerField(default=0)
+
+    # 직업이 무엇인가요?
+    job = models.CharField(max_length=20, blank=True, null=True)
+    # 직업을 꼭 말하고 싶지 않을 수도 있죠
+
+    # 다음 중 해당사항에 체크해주세요
+    stress = "스트레스를 많이 받는 편"
+    irregular_meals = "식사 불규칙"
+    greasy_meals = "기름진 음식을 많이 먹음"
+    irregular_sleep = "수면시간 불규칙"
+    nothing="해당사항 없음"    
+    bad_habits = (
+        (stress, "스트레스를 많이 받는 편"), (irregular_meals, "식사 불규칙"),
+        (greasy_meals, "기름진 음식을 많이 먹음"), (irregular_sleep, "수면시간 불규칙"),
+        (nothing, "해당사항 없음")
+    )
+    relevant_data = models.CharField(
+        max_length=13, choices=bad_habits, blank=True, null=True)
+
+
     def __str__(self):
         return (self.author.username + '/' + self.symptom + '/' + str(self.id))
 
@@ -21,10 +103,21 @@ class StomachacheSurvey(SurveyMeta):
         ('less_than_month', '한 달이 안됐습니다.'),
         ('more_than_month', '한 달이 넘었습니다.'),
     ]
-
+    
     FAST_OR_SLOW = [
         ('fast', '갑자기'),
         ('slow', '천천히'),
+    ]
+
+    PAIN_POSITION = [
+        ("whole abdomen", "복부 전체"),
+        ("sternal", "명치"),
+        ("umbilicus", "배꼽"),
+        ("flank", "옆구리"),
+        ("LUQ", "왼쪽 위"),
+        ("LLQ", "왼쪽 아래"),
+        ("RUQ", "오른쪽 위"),
+        ("RLQ", "오른쪽 아래"),
     ]
 
     PAIN_DURATION = [
@@ -45,10 +138,11 @@ class StomachacheSurvey(SurveyMeta):
         ('more_than_6', '6회이상'),
     ]
 
-    PAIN_CHARACTER = [
-        ('squeeze', '쥐어짜듯'),
-        ('burn', '타는듯'),
-        ('cut', '베이듯'),
+    PAIN_CHARACTER = [ # 통증의 양상 다양한 표현이 있을 수 있다.
+        ('crushing', '쥐어짜듯'),
+        ('burning', '타는듯'),
+        ('stabbing', '베이듯'),
+        ('splitting', '찢어지듯'),
     ]
 
     PAIN_SCORE = [
@@ -65,55 +159,65 @@ class StomachacheSurvey(SurveyMeta):
     ]
 
     ASSOCIATED_SYMPTOM_DIGESTIVE = [
-        ('식욕감소', '식욕감소'),
-        ('구역질', '구역질'),
-        ('구토', '구토'),
-        ('토혈', '토혈'),
-        ('복부팽만', '복부팽만'),
-        ('복부종괴', '복부종괴'),
-        ('변비', '변비'),
-        ('설사', '설사'),
-        ('혈변', '혈변'),
-        ('흑색변', '흑색변'),
-        ('지방변', '지방변'),
-        ('황달', '황달'),
+        ('change of appetite', '식욕감소'),
+        ('nausea', '구역질'),
+        ('vomiting', '구토'),
+        ('vomiting blood', '토혈'),
+        ('abdominal inflation', '복부팽만'),
+        ('lump on abdomen', '복부종괴'),
+        ('constipation', '변비'),
+        ('diarrhea', '설사'),
+        ('rectal_bleeding', '혈변'),
+        ('melena', '흑색변'),
+        ('steatorrhea', '지방변'),
+        ('jaundice', '황달'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     ASSOCIATED_SYMPTOM_CIRCULATORY = [
-        ('가슴통증', '가슴통증'),
-        ('호흡곤란', '호흡곤란'),
-        ('기침', '기침'),
+        ('chest pain', '가슴통증'),
+        ('shortness of breah', '호흡곤란'),
+        ('cough', '기침'),
+        ('runny nose', '콧물'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     ASSOCIATED_SYMPTOM_GYNECOLOGY = [
-        ('질출혈', '질출혈'),
-        ('질분비물', '질분비물'),
-        ('생리주기변화', '생리주기변화'),
-        ('임신가능성', '임신가능성'),
-
+        ('colporrhagia', '질출혈'),
+        ('leukorrhea', '질분비물'),
+        ('menstrual cycle change', '생리주기변화'),
+        ('pregnant possibility', '임신가능성'),
+        ('nothing', '해당사항 없음'),            
     ]
 
     ASSOCIATED_SYMPTOM_WHOLE_BODY = [
-        ('발열', '발열'),
-        ('오한', '오한'),
-        ('피로', '피로'),
-        ('체중변화', '체중변화'),
-        ('식은땀', '식은땀'),
+        ('fever', '발열'),
+        ('chilling', '오한'),
+        ('fatigue', '피로'),
+        ('weight change', '체중변화'),
+        ('sweating', '식은땀'),
+        ('sleep disturbance','수면곤란'), 
+        ('headache', '두통'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     ASSOCIATED_SYMPTOM_URINARY = [
-        ('배뇨통', '배뇨통'),
-        ('소변량변화', '소변량변화'),
-        ('혈뇨', '혈뇨'),
-        ('빈뇨', '빈뇨'),
+        ('painful urination', '배뇨통'),
+        ('chnage the quantity of urine', '소변량변화'),
+        ('red urine', '혈뇨'),
+        ('foamy urine', '거품뇨'),
+        ('frequency' ,'잦은 소변'),
+        ('nothing', '해당사항 없음'),        
     ]
 
     FACTOR = [
-        ('after_meal', '식사후 심해짐'),
-        ('no_meal', '공복에심해짐'),
-        ('after_alchol', '음주후 심해짐'),
+        ('after meal', '식사후 심해짐'),
+        ('no meal', '공복에심해짐'),
+        ('after alchol', '음주후 심해짐'),
         ('posture', '자세에따라 통증변화'),
-        ('defecation', '배뇨/배변에 의해 통증변화'),
+        ('urination', '배뇨시 통증변화'),
+        ('defecation', '배변시 통증변화'),
+        ('nothing', '해당사항 없음'),
     ]
 
     abdomen_hurted = "복부를 다친 적이 있음"
@@ -131,7 +235,7 @@ class StomachacheSurvey(SurveyMeta):
     symtpon_situation = models.CharField(max_length=50)
 
     # location
-    symtpom_location = models.CharField(max_length=100)
+    symtpom_location = models.CharField(max_length=20, choices=PAIN_POSITION, default="NULL")
     location_move = models.BooleanField(default=False)
     location_move_how = models.CharField(max_length=100)
     pain_spread = models.BooleanField(default=False)
@@ -176,7 +280,8 @@ class StomachacheSurvey(SurveyMeta):
 
     # 다음 중 해당 사항에 모두 체크해주세요
 
-    abdomen_relevant = models.CharField(max_length=15, choices=abdomen_history)
+    abdomen_relevant = models.CharField(max_length=30, choices=abdomen_history)
+    # abdomen_relevant = models.CharField(max_length=100)
 
     def __str__(self):
         return (self.author.username + '/' + self.symptom + '/' + str(self.id))

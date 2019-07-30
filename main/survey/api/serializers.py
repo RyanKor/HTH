@@ -112,7 +112,11 @@ class StomachacheSurveyCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StomachacheSurvey
-        exclude = ["symptom", "created_at", "author"]
+        exclude = ["symptom", "created_at", "author", "had_checkup", 
+                   "had_checkup_true", "diagnosed_disease", "taking_medicine", 
+                   "what_medicine", "family_history", "drinking", 
+                   "drinking_per_week", "smoking", "how_long_smoking", 
+                   "how_much_smoking", "job", "relevant_data"]
 
 
 class StomachacheSurveySerializer(serializers.ModelSerializer):
@@ -138,7 +142,11 @@ class SurveyMetaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SurveyMeta
-        fields = "__all__"
+        exclude = ["had_checkup", 
+                   "had_checkup_true", "diagnosed_disease", "taking_medicine", 
+                   "what_medicine", "family_history", "drinking", 
+                   "drinking_per_week", "smoking", "how_long_smoking", 
+                   "how_much_smoking", "job", "relevant_data"]
 
     def get_created_at(self, instance):
         return instance.created_at.strftime("%Y %B %d")

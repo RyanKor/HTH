@@ -1,28 +1,21 @@
 <template>
   <div class="nav">
-    <transition-expand>
-      <div class="navbar">
-        <div class="nav-brand">
-          <img class="logo" src="../../assets/logo_tp.png" />
-        </div>
-        <div class="nav-icon">
-          <span class="icon" @click="expanded = !expanded">
-            <i class="fas fa-bars"></i>
-          </span>
-        </div>
+    <div class="navhead">
+      <div class="navhead-brand">
+        <img class="navhead-brand-logo" src="../../assets/logo4.png" />
       </div>
+      <!-- <p class="navhead-txt">청각장애인을 위한 진료도우미</p> -->
+      <div class="navhead-icon" @click="expanded = !expanded">
+        <i class="fas fa-bars fa-lg"></i>
+      </div>
+    </div>
+    <transition-expand>
       <div class="navexpand" v-if="expanded">
-        <div v-if="expanded">
-          Magna aliquyam erat, sed diam voluptua. At vero eos et
-          accusam et justo duo dolores et ea rebum. Stet clita kasd
-          gubergren, no sea takimata sanctus est Lorem ipsum dolor
-          sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-          ut labore et dolore magna aliquyam erat, sed diam
-          voluptua. At vero eos et accusam et justo duo dolores et
-          ea rebum. Stet clita kasd gubergren, no sea takimata
-          sanctus est Lorem ipsum dolor sit amet.
-        </div>
+        <a class="nav-menu">로그인</a>
+        <br />
+        <a class="nav-menu">회원가입</a>
+        <br />
+        <a class="nav-menu">About 60dB</a>
       </div>
     </transition-expand>
   </div>
@@ -31,7 +24,7 @@
 <script>
 import TransitionExpand from "./NavEffect.vue";
 export default {
-  name: `App`,
+  name: `Nav`,
   components: {
     TransitionExpand
   },
@@ -43,11 +36,66 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 /* nav bar */
-.logo {
-  width: 4rem;
-  height: 2rem;
+
+.navhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.562);
+  padding: 0 0.8rem;
+  height: 8.5vh;
+}
+.navhead-brand-logo {
+  width: 16.5rem;
+  height: 3rem;
+  vertical-align: middle;
+}
+.navhead-txt {
+  color: gray;
+  font-family: "KoreanDREAM3R";
+  letter-spacing: 80%;
+  font-size: 0.6rem;
+  margin-left: 5%;
+  margin-right: 10%;
+}
+.navhead-icon {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid rgba(128, 128, 128, 0.24);
+  border-radius: 3px;
+  width: 44px;
+  height: 34px;
+  padding: 0.1rem;
+}
+.navhead-icon:hover {
+  background-color: rgb(233, 232, 232);
+  transition: 0.4s;
+}
+.navhead-icon:focus {
+  background-color: rgb(233, 232, 232);
+}
+.fa-bars {
+  color: gray;
+  margin: 0.25rem auto;
+  font-size: 1.5rem;
+}
+.navexpand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.63);
+  color: rgb(77, 77, 77);
+  line-height: 1px;
+  font-weight: 500;
+}
+.nav-menu {
+  font-size: 0.9rem;
+  width: 100%;
+  padding: 20px 20px;
 }
 .expand-enter-active,
 .expand-leave-active {

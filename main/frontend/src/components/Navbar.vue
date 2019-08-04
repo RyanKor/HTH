@@ -12,7 +12,8 @@
         <b-collapse id="nav-collapse" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-breadcrumb :items="items"></b-breadcrumb>
+            <b-breadcrumb v-if="isLogin">{{email}}</b-breadcrumb>
+            <b-breadcrumb @click="logout">logout</b-breadcrumb>
           </b-navbar-nav>
         </b-collapse>
       </div>
@@ -21,24 +22,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      items: [
-        {
-          text: "Login",
-          router: "http://127.0.0.1:8080/login"
-        },
-        {
-          text: "Signup",
-          href: "http://127.0.0.1:8080"
-        },
-        {
-          text: "About Us",
-          href: "http://127.0.0.1:8080/about"
-        }
-      ]
+      email: null
     };
+  },
+  computed: {
+    ...mapState(["isLogin", "isLoginError"])
+  },
+  created() {
+    axios
+      .get("http://127.0.0.1:8000/api/user/")
+      .then(({ data }) => (this.user = data.user));
   }
 };
 </script>

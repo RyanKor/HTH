@@ -1,71 +1,75 @@
 <template>
-  <v-container fill-height style="max-width=450px;">
-    <v-layout align-center row wrap>
-      <v-flex xs12>
-        <v-alert class="mb-3" :value="isLoginError" type="error">아이디와 비밀번호를 확인해주세요.</v-alert>
-        <v-alert class="mb-3" :value="isLogin" type="success">로그인이 완료되었습니다.</v-alert>
-        <v-card>
-          <v-toolbar flat>
-            <v-toolbar-title>로그인</v-toolbar-title>
-          </v-toolbar>
-          <div class="pa-3">
-            <v-text-field v-model="email" label="이메일을 입력하세요"></v-text-field>
-            <v-text-field v-model="password" type="password" label="패스워드를 입력하세요"></v-text-field>
-            <v-btn color="primary" depressed block large @click="login({email, password})">로그인</v-btn>
-            <!-- <v-btn @click="test">테스트</v-btn>
-            <v-btn @click="postTest">테스트</v-btn>-->
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <div class="login">
+    <login-logo class="header" />
+    <login-form class="footer" />
+  </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+// @ is an alias to /src
+import LoginLogo from "../components/registerPage/LoginLogo.vue";
+import LoginForm from "../components/registerPage/LoginForm.vue";
 
 export default {
-  data() {
-    return {
-      email: null,
-      password: null
-    };
-  },
-  computed: {
-    ...mapState(["isLogin", "isLoginError"])
-  },
-  methods: {
-    ...mapActions(["login"])
-    //     test(){
-    //             // Make a request for a user with a given ID
-    //             axios
-    //             .get('https://reqres.in/api/users?page=2')
-    //             .then(res => {
-    //                 // handle success
-    //                 console.log(res);
-    //             })
-    //             .catch(err => {
-    //                 // handle error
-    //                 console.log(err);
-    //             })
-    //             .finally(() => {
-    //                 // always executed
-    //             });
-
-    //         },
-    //     postTest() {
-    //      axios
-    //      .post('https://reqres.in/api/register', {
-    //     "email": "eve.holt@reqres.in",
-    //     "password": "pistol"
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    //   }
+  name: "login",
+  components: {
+    LoginLogo,
+    LoginForm
   }
 };
 </script>
+<style scoped>
+.login {
+  width: 100%;
+  height: 100vh;
+  color: #fff;
+  background: linear-gradient(-45deg, #0a4b8b, #35c3c0);
+  /* background-size: 400% 400%; */
+  /* -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite; */
+}
+.header {
+  width: 100%;
+  height: 50%;
+}
+.footer {
+  width: 100%;
+  height: 50%;
+}
+/* @-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} */
+</style>

@@ -23,7 +23,7 @@ export default {
           const { height } = getComputedStyle(element);
           /* eslint-disable no-param-reassign */
           element.style.width = null;
-          element.style.position = null;
+          element.style.position =null  ;
           element.style.visibility = null;
           element.style.height = 0;
           /* eslint-enable */
@@ -69,7 +69,7 @@ export default {
 .expand-enter-active,
 .expand-leave-active {
   transition: height 0.5s ease-in-out;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 .expand-enter,
 .expand-leave-to {

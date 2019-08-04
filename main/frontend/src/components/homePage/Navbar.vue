@@ -2,7 +2,9 @@
   <div class="nav">
     <div class="navhead">
       <div class="navhead-brand">
-        <img class="navhead-brand-logo" src="../../assets/logo4.png" />
+        <router-link :to="{ name: 'home' }">
+          <img class="navhead-brand-logo" src="../../assets/logo4.png" />
+        </router-link>
       </div>
       <!-- <p class="navhead-txt">청각장애인을 위한 진료도우미</p> -->
       <div class="navhead-icon" @click="expanded = !expanded">
@@ -97,6 +99,7 @@ export default {
   width: 100%;
   padding: 20px 20px;
 }
+
 .expand-enter-active,
 .expand-leave-active {
   transition-property: opacity, height;

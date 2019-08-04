@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'users',
     'hth',
-
+    'profiles',
+    # 인우 : profiles앱 추가했습니다
+    'survey',
+    # 지환 : survey 앱 추가
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -53,7 +56,6 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'webpack_loader',
-
 ]
 
 MIDDLEWARE = [
@@ -142,6 +144,9 @@ LOGOUT_REGIRECT_URL = "/"
 
 # setting Custom models
 AUTH_USER_MODEL = "users.CustomUser"
+# 8.인우 : user모델 커스텀해줬으면 반드시 해줘야 하는 설정입니다.
+# users/forms.py로 ㄱㄱ
+
 SITE_ID = 1
 
 
@@ -168,3 +173,15 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 ACCOUNT_EMAIL_VERTIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = (True)
+
+MEDIA_URL = "/media/"
+# MEDIA_URL의 디폴트 값은 빈 문자열이다.
+# MEDIA_ROOT로부터 전달받은 미디어를 다루는 URL
+# 디폴트 값이 아닌 값을 저장하려면 반드시 /로 끝나야함
+# 보통 아래와 같이 URL로 설정하나 개발 과정에서의 테스트를 위해 로컬로 설정했음.(ursl.py참조)
+# Example: "http://media.example.com/"
+
+MEDIA_ROOT = "uploads"
+# MEDIA_ROOT의 디폴트 값은 빈 문자열이다.
+# 사용자가 업로드한 파일을 저장?하기 위한 디렉토리를 가리키는 절대경로이다.
+# Example: "/var/www/example.com/media/"

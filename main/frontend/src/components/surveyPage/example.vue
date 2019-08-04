@@ -14,16 +14,16 @@
       <a href="#port4" class="scrollactive-item">Section4</a>
     </scrollactive>
     <div id="port1">
-      <sapn class="span">Section1</sapn>
+      <span class="span">Section1</span>
     </div>
     <div id="port2">
-      <sapn class="span">Section2</sapn>
+      <span class="span">Section2</span>
     </div>
     <div id="port3">
-      <sapn class="span">Section3</sapn>
+      <span class="span">Section3</span>
     </div>
     <div id="port4">
-      <sapn class="span">Section4</sapn>
+      <span class="span">Section4</span>
     </div>
   </div>
 </template>

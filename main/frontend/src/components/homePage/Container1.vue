@@ -1,7 +1,7 @@
 <template>
   <v-carousel
     class="v-carousel"
-    height="65vh"
+    height="63vh"
     :show-arrows="false"
     :hide-delimiters="hideDelimiters"
     :cycle="cycle"
@@ -68,16 +68,19 @@ export default {
 .v-carousel {
   height: 65vh;
 }
+.v-responsive__content {
+  height: 100%;
+}
 .carousel-txt {
   display: flex;
   flex-direction: column;
-  padding: 3rem;
+  padding: 3rem 2.5rem;
   padding-top: 3rem;
 }
 .carousel-txt-3 {
   display: flex;
   flex-direction: column;
-  padding: 3rem;
+  padding: 3rem 2.5rem;
   padding-top: 3.3rem;
   text-align: center;
 }
@@ -88,11 +91,5 @@ export default {
   font-weight: bolder;
   color: rgb(87, 87, 87);
   font-weight: 800;
-}
-
-@media (max-width: 768px) {
-  .v-carousel {
-    height: 80vh;
-  }
 }
 </style>

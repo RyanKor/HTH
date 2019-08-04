@@ -8,10 +8,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: null,
-    // allUsers: [
-    //   { id: 1, name: "hoza", email: "hoza@gmail.com", password: "123456" },
-    //   { id: 2, name: "lego", email: "lego@gmail.com", password: "123456" }
-    // ],
     isLogin: false,
     isLoginError: false
   },
@@ -55,6 +51,20 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit("logout");
       router.push({ name: "home" });
+    },
+    signup({ dispatch }, loginObj) {
+      // login --> 토큰 반환
+      axios
+        .post("http://127.0.0.1:8000/api/rest-auth/registration/", loginObj)
+        // loginObj = {email,password}
+        .then(res => {
+          alert("회원가입이 성공적으로 이뤄졌습니다.");
+          router.push({ name: "login" });
+          console.log(res);
+        })
+        .catch(() => {
+          alert("이메일과 비밀번호를 확인하세요.");
+        });
     }
     // getMemberInfo({ commit }) {
     //   //로컬 스토리지에 저장된 토큰을 저장한다.

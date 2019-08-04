@@ -8,9 +8,7 @@
 import scroll from "../components/surveyPage/example.vue";
 export default {
   name: "practice",
-  data() {
-    return;
-  },
+
   components: {
     scroll
   }

@@ -9,6 +9,7 @@ export default new Router({
   hashbang: false,
   mode: "history",
   routes: [{
+
       path: "/",
       name: "home",
       component: Home

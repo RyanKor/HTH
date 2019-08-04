@@ -9,8 +9,8 @@ from profiles.api.views import ProfileListAPIView, ProfileRetrieveAPIView, Profi
 urlpatterns = [
     path("profiles/", ProfileListAPIView.as_view(), name="profile-list"),
     # path("", include(router.urls)),
-    path("profile/<str:user>/", ProfileRetrieveAPIView.as_view(),
+    path("profiles/<str:user>/", ProfileRetrieveAPIView.as_view(),
          name="profile-detail"),
-    path("profile/<str:user>/update/",
+    path("profiles/<str:user>/update/",
          ProfileUpdateAPIView.as_view(), name="profile-update"),
 ]

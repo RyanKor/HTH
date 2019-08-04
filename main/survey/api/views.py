@@ -23,7 +23,24 @@ class StomachacheSurveyCreateView(generics.CreateAPIView):
     # 새 인스턴스를 저장할 때 CreateModelMixin에 의해서 호출되는 함수
         author = self.request.user
         symptom = "복통"
-        serializer.save(symptom=symptom, author=author)
+        had_checkup = self.request.user.profile.had_checkup
+        had_checkup_true = self.request.user.profile.had_checkup_true
+        diagnosed_disease = self.request.user.profile.diagnosed_disease
+        taking_medicine = self.request.user.profile.taking_medicine
+        what_medicine = self.request.user.profile.what_medicine
+        family_history = self.request.user.profile.family_history
+        drinking = self.request.user.profile.drinking
+        drinking_per_week = self.request.user.profile.drinking_per_week
+        smoking = self.request.user.profile.smoking
+        how_long_smoking = self.request.user.profile.how_long_smoking
+        how_much_smoking = self.request.user.profile.how_much_smoking
+        job = self.request.user.profile.job
+        relevant_data = self.request.user.profile.relevant_data
+        serializer.save(symptom=symptom, author=author, had_checkup=had_checkup, had_checkup_true=had_checkup_true, 
+                        diagnosed_disease=diagnosed_disease, taking_medicine=taking_medicine, what_medicine=what_medicine, 
+                        family_history=family_history, drinking=drinking, drinking_per_week=drinking_per_week,
+                        smoking=smoking, how_long_smoking=how_long_smoking, how_much_smoking=how_much_smoking, job=job, 
+                        relevant_data=relevant_data)
 
 class MultipleFieldLookupMixin(object):
     """
@@ -57,7 +74,6 @@ class OwnSurveyListView(generics.ListAPIView):
 
         queryset = StomachacheSurvey.objects.filter(author=self.request.user)
         return queryset
-
 
 class SurveyMetaListView(generics.ListAPIView):
     queryset = SurveyMeta.objects.all()

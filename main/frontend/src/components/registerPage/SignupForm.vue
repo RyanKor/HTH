@@ -7,9 +7,9 @@
       <p>이메일</p>
       <input type="text" v-model="email" name="email" label="가입할 이메일을 입력하세요" />
       <p>비밀번호</p>
-      <input type="text" v-model="password1" name="userpassword1" label="비밀번호를 입력하세요" />
+      <input type="password" v-model="password1" name="userpassword1" label="비밀번호를 입력하세요" />
       <p>비밀번호 확인</p>
-      <input type="text" v-model="password2" name="userpassword2" label="비밀번호 확인을 위해 다시 한 번 입력해주세요" />
+      <input type="password" v-model="password2" name="userpassword2" label="비밀번호 확인을 위해 다시 한 번 입력해주세요" />
       <br />
     </form>
     <div class="login-btn">

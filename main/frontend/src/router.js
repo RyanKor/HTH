@@ -5,6 +5,12 @@ import Home from "./views/Home.vue";
 
 Vue.use(Router);
 
+// const requireAuth = () => (from, to, next) => {
+//   const isAuthenticated = false;
+//   if (isAuthenticated) return next();
+//   next("/login?returnPath=home");
+// };
+
 export default new Router({
   hashbang: false,
   mode: "history",
@@ -24,18 +30,15 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-      path: "/ex",
-      name: "ex",
-      component: () => import("./views/ex.vue")
-    },
-    {
       path: "/survey",
       name: "survey",
+      // beforeEnter: requireAuth(),
       component: () => import("./views/Survey.vue")
     },
     {
       path: "/result",
       name: "result",
+      // beforeEnter: requireAuth(),
       component: () => import("./views/Result.vue")
     },
     {
@@ -47,6 +50,18 @@ export default new Router({
       path: "/signup",
       name: "signup",
       component: () => import("./views/Signup.vue")
+    },
+    {
+      path: "/profileupdate",
+      name: "profileupdate",
+      // beforeEnter: requireAuth,
+      component: () => import("./views/ProfileUpdate.vue")
+    },
+    {
+      path: "/profiles",
+      name: "profiles",
+      // beforeEnter: requireAuth,
+      component: () => import("./views/Profiles.vue")
     }
   ]
 });

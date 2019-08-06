@@ -7,6 +7,7 @@ class CurrentUserAPIView(APIView):
 
     def get(self, request):
         serializer = UserDisplaySerializer(request.user)
+        
         return Response(serializer.data)
 
 

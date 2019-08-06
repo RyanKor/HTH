@@ -4,7 +4,7 @@
       <p>아이디</p>
       <input type="text" v-model="username" name="username" label="ID를 입력하세요" />
       <p>비밀번호</p>
-      <input type="text" v-model="password" name="userpassword" label="비밀번호를 입력하세요" />
+      <input type="password" v-model="password" name="userpassword" label="비밀번호를 입력하세요" />
       <br />
     </form>
     <div class="login-btn">

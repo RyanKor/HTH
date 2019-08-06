@@ -29,7 +29,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login({ dispatch }, loginObj) {
+    login(dispatch, loginObj) {
       // login --> 토큰 반환
       axios
         .post("http://127.0.0.1:8000/api/rest-auth/login/", loginObj)
@@ -40,7 +40,7 @@ export default new Vuex.Store({
           let token = res.data.token;
           //토큰을 로컬 스토리지에 저장
           localStorage.setItem("access_token", token);
-          // this.dispatch("getMemberInfo");
+          this.dispatch("getMemberInfo");
           router.push({ name: "home" });
           console.log(res);
         })
@@ -52,7 +52,7 @@ export default new Vuex.Store({
       commit("logout");
       router.push({ name: "home" });
     },
-    signup({ dispatch }, loginObj) {
+    signup(dispatch, loginObj) {
       // login --> 토큰 반환
       axios
         .post("http://127.0.0.1:8000/api/rest-auth/registration/", loginObj)
@@ -65,30 +65,30 @@ export default new Vuex.Store({
         .catch(() => {
           alert("이메일과 비밀번호를 확인하세요.");
         });
+    },
+    getMemberInfo({ commit }) {
+      //로컬 스토리지에 저장된 토큰을 저장한다.
+      let token = localStorage.getItem("access_token");
+      let config = {
+        headers: {
+          "access-token": token
+        }
+      };
+      //토큰 -> 멤버 정보 반환
+      //새로고침 --> 토큰만 갖고 멤버 정보 요청가능
+      axios
+        .get("https://127.0.0.1:8000/api/user/", config)
+        .then(response => {
+          let userInfo = {
+            pk: response.data.data.pk,
+            username: response.data.data.username,
+            email: response.data.data.email
+          };
+          commit("loginSuccess", userInfo);
+        })
+        .catch(() => {
+          alert("이메일과 비밀번호를 확인하세요.");
+        });
     }
-    // getMemberInfo({ commit }) {
-    //   //로컬 스토리지에 저장된 토큰을 저장한다.
-    //   let token = localStorage.getItem("access_token");
-    //   let config = {
-    //     headers: {
-    //       "access-token": token
-    //     }
-    //   };
-    //   //토큰 -> 멤버 정보 반환
-    //   //새로고침 --> 토큰만 갖고 멤버 정보 요청가능
-    //   axios
-    //     .get("https://127.0.0.1:8000/api/user/", config)
-    //     .then(response => {
-    //       let userInfo = {
-    //         pk: response.data.data.pk,
-    //         username: response.data.data.username,
-    //         email: response.data.data.email
-    //       };
-    //       commit("loginSuccess", userInfo);
-    //     })
-    //     .catch(err => {
-    //       alert("이메일과 비밀번호를 확인하세요.");
-    //     });
-    // }
   }
 });

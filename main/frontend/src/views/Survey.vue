@@ -1,25 +1,21 @@
 <template>
-    <div class="survey">
-        <Navbar />
-        <h1>설문조사 페이지</h1>
-    </div>
+  <div class="practice">
+    <navbar />
+    <scroll />
+  </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue';
+import scroll from "../components/surveyPage/example.vue";
+import navbar from "../components/homePage/Navbar.vue";
 export default {
-  name: "survey",
-    data () {
-    return {
-      title: 'Survey'
-    }
-      },
+  name: "practice",
+
   components: {
-    Navbar
+    scroll,
+    navbar
   }
 };
 </script>
-
 <style>
-
 </style>

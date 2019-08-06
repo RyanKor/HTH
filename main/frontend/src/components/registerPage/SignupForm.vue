@@ -1,10 +1,15 @@
 <template>
   <div class="formContainer">
+    <a class="bold">&nbsp;&nbsp;회원가입</a>
     <form class="login-box">
       <p>아이디</p>
-      <input type="text" v-model="username" name="username" label="ID를 입력하세요" />
+      <input type="text" v-model="username" name="username" label="가입할 ID를 입력하세요" />
+      <p>이메일</p>
+      <input type="text" v-model="email" name="email" label="가입할 이메일을 입력하세요" />
       <p>비밀번호</p>
-      <input type="password" v-model="password" name="userpassword" label="비밀번호를 입력하세요" />
+      <input type="password" v-model="password1" name="userpassword1" label="비밀번호를 입력하세요" />
+      <p>비밀번호 확인</p>
+      <input type="password" v-model="password2" name="userpassword2" label="비밀번호 확인을 위해 다시 한 번 입력해주세요" />
       <br />
     </form>
     <div class="login-btn">
@@ -12,35 +17,31 @@
         type="submit"
         class="button"
         name="submit"
-        @click="login({username, password})"
-        value="로그인"
+        @click="signup({username, email,password1, password2})"
+        value="회원가입"
       />
-      <div class="login-btn-txt">
-        <a>아이디/비밀번호 찾기 |</a>
-        <a class="bold">
-          <router-link :to="{ name: 'signup' }">&nbsp;&nbsp;회원가입</router-link>
-        </a>
-      </div>
     </div>
   </div>
 </template>
+
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
       username: null,
-      password: null
+      email: null,
+      password1: null,
+      password2: null
     };
   },
-  computed: {
-    ...mapState(["isLogin", "isLoginError"])
-  },
   methods: {
-    ...mapActions(["login"])
+    ...mapActions(["signup"])
   }
 };
 </script>
+
+
 <style scoped>
 .formContainer {
   width: 100%;

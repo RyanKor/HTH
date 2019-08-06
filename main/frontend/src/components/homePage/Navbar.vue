@@ -13,11 +13,17 @@
     </div>
     <transition-expand>
       <div class="navexpand" v-if="expanded">
-        <a class="nav-menu">로그인</a>
+        <a class="nav-menu">
+          <router-link to="/login">로그인</router-link>
+        </a>
         <br />
-        <a class="nav-menu">회원가입</a>
+        <a class="nav-menu">
+          <router-link to="/signup">회원가입</router-link>
+        </a>
         <br />
-        <a class="nav-menu">About 60dB</a>
+        <a class="nav-menu">
+          <router-link to="/about">About 60dB</router-link>
+        </a>
       </div>
     </transition-expand>
   </div>
